@@ -1,0 +1,14 @@
+.pad{
+    padding-top: 15px
+}
+
+.symClean{
+    max-width: 120px;
+    max-height: 120px;
+    padding: 5px
+}
+
+.symTiny{
+    max-width: 50px;
+    max-height: 50px;
+}
