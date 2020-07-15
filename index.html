@@ -57,51 +57,60 @@
       <p id="detInfo"></p>
     </div>
   </div>
-  
 
-  <!-- Binder Page -->
+  <!-- "Page" Buttons -->
+  <!-- Pagination-->
   <div class="container">
-    <div class="row">
-      <div class="col=lg-12" id="binder"></div>
-    </div>
-  </div>
-
-  <!-- Sets Table-->
-  <form class="container pad">
-    <div class="row justify-content-between">
-      <div>
-        <label for="cardname">
-          <h5>Search By Set Name: </h5>
-        </label>
-        <input type="text" id="setName" placeholder="Fallen Empires">
-        <button type="add" id="addSet" class="btn btn-success">ADD</button>
-        <button type="clear" id="undoSet" class="btn btn-warning">UNDO</button>
-      </div>
-      <div>
-        <button type="clear" id="clearSet" class="btn btn-danger">CLEAR</button>
+    <div class="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups">
+      <div class="btn-group mr-2" role="group" aria-label="First group" id="ring">
+        <!-- <button type="button" class="btn btn-secondary">1</button> -->
       </div>
     </div>
-  </form>
 
-  <!-- Table of Sets-->
-  <div class="container">
-    <div class="row">
-    <div id="setList" class="col-lg-12 ">
-      <!-- Set Data Gets Inserted Here -->
-    </div>
-  </div>
-</div>
-
-  <!-- Modal -->
-  <div class="modal fade" id="viewCard" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
+    <!-- Binder Page -->
+    <div class="container">
+      <div class="row">
+        <div class="col=lg-12" id="binder"></div>
       </div>
-      <div id="viewer"></div>
     </div>
-  </div>
+
+    <!-- Sets Table-->
+    <form class="container pad">
+      <div class="row justify-content-between">
+        <div>
+          <label for="cardname">
+            <h5>Search By Set Name: </h5>
+          </label>
+          <input type="text" id="setName" placeholder="Fallen Empires">
+          <button type="add" id="addSet" class="btn btn-success">ADD</button>
+          <button type="clear" id="undoSet" class="btn btn-warning">UNDO</button>
+        </div>
+        <div>
+          <button type="clear" id="clearSet" class="btn btn-danger">CLEAR</button>
+        </div>
+      </div>
+    </form>
+
+    <!-- Table of Sets-->
+    <div class="container">
+      <div class="row">
+        <div id="setList" class="col-lg-12 ">
+          <!-- Set Data Gets Inserted Here -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="viewCard" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+        </div>
+        <div id="viewer"></div>
+      </div>
+    </div>
   </div>
 </body>
 
 </html>
+

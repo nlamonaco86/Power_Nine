@@ -2,6 +2,10 @@
     padding-top: 15px
 }
 
+.cardPad{
+    padding: 5px
+}
+
 .symClean{
     max-width: 120px;
     max-height: 120px;

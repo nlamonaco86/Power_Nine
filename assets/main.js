@@ -6,7 +6,7 @@ function renderBinder() {
   if (cards.pop) {
     $.ajax({
       method: 'GET',
-      url: "https://api.scryfall.com/cards/named?fuzzy=" + cards.pop() 
+      url: "https://api.scryfall.com/cards/named?fuzzy=" + cards.pop()
     })
       .then((response) => {
         // Retrieving the URL for the image
@@ -14,7 +14,7 @@ function renderBinder() {
         // Creating an element to hold the image
         var image = $("<img>").attr("src", imgURL);
         //Gives Modal control attributes to the card image
-        image.attr({"data-toggle": "modal","data-target": "#viewCard","data-name": response.name, "class": "mtg img-fluid"});
+        image.attr({"data-toggle": "modal","data-target": "#viewCard","data-name": response.name, "class": "mtg cardPad"});
         // Appending the image
         $("#binder").prepend(image);
         // console.log(response.image_uris.small);
@@ -113,14 +113,30 @@ function getSet() {
     url: queryURL,
     method: "GET"
   }).then(function (response) {
+    // gets 1 page per 9 cards, rounded up
+    var pageNum = Math.ceil(response.card_count / 9)
     //Set Symbol as a clickable button with attributes
-    var setSymbol = $("<img>").attr({"src": response.icon_svg_uri, "alt": response.name, "class": "symClean", "data-name": response.code}) 
+    var setSymbol = $("<img>").attr({"src": response.icon_svg_uri, "alt": response.name, "class": "symClean set", "data-name": response.code}) 
     //Add it to the Page
     $("#setList").append(setSymbol)
     //Sends title, icon, name and info to the summary viewer at the top
     $("#nowShowing").text("Now Viewing: " + response.name)
     $("#detInfo").text(response.card_count + " Cards, Released " + response.released_at)
     $("#setThumb").attr({"src": response.icon_svg_uri, "alt": response.name})
-  // console.log(response)  
+    //Empty the binder 
+    $("#binder").empty();
+    //Empty the binder ring
+    $("#ring").empty();  
+    //Makes "Page" buttons on the binder when a set is searched 
+    for (var i = 0; i < pageNum; i++) {
+      //Makes button a variable 
+      var pageBtn = $("<button>");
+      // Adds number attr to the page button
+      pageBtn.attr({"data-name": pageNum[i], "class": "btn btn-secondary"});
+      // Puts a number on the button
+      pageBtn.text(i+1);
+      // Adds the button to the binder ring
+      $("#ring").append(pageBtn);
+    } 
   });  
 }
