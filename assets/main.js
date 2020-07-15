@@ -3,12 +3,12 @@ var cards = ["Black Lotus","Mox Pearl","Mox Sapphire","Mox Jet","Mox Ruby","Mox 
 
 //Function that adds default cards to the binder on page load
 function renderBinder() {
-  if (cards.pop) {
+  for (var i = 0; i < cards.length; i++){
     $.ajax({
       method: 'GET',
-      url: "https://api.scryfall.com/cards/named?fuzzy=" + cards.pop()
-    })
-      .then((response) => {
+      url: "https://api.scryfall.com/cards/named?fuzzy=" + cards[i]
+
+        }).then(function (response) {
         // Retrieving the URL for the image
         var imgURL = response.image_uris.small;
         // Creating an element to hold the image
@@ -16,10 +16,7 @@ function renderBinder() {
         //Gives Modal control attributes to the card image
         image.attr({"data-toggle": "modal","data-target": "#viewCard","data-name": response.name, "class": "mtg cardPad"});
         // Appending the image
-        $("#binder").prepend(image);
-        // console.log(response.image_uris.small);
-        renderBinder(cards);
-        // console.log(response.name)                
+        $("#binder").append(image);            
       });
   }
 }
@@ -119,6 +116,42 @@ function getSet() {
     var setSymbol = $("<img>").attr({"src": response.icon_svg_uri, "alt": response.name, "class": "symClean set", "data-name": response.code}) 
     //Add it to the Page
     $("#setList").append(setSymbol)
+    //Sends title, icon, name and info to the summary viewer at the top
+    $("#nowShowing").text("Now Viewing: " + response.name)
+    $("#detInfo").text(response.card_count + " Cards, Released " + response.released_at)
+    $("#setThumb").attr({"src": response.icon_svg_uri, "alt": response.name})
+    //Empty the binder 
+    $("#binder").empty();
+    //Empty the binder ring
+    $("#ring").empty();  
+    //Makes "Page" buttons on the binder when a set is searched 
+    for (var i = 0; i < pageNum; i++) {
+      //Makes button a variable
+      var pageBtn = $("<button>");
+      // Adds number attr to the page button
+      pageBtn.attr({"data-name": pageNum[i], "class": "btn btn-secondary"});
+      // Puts a number on the button
+      pageBtn.text(i+1);
+      // Adds the button to the binder ring
+      $("#ring").append(pageBtn);
+    } 
+  });  
+}
+
+// CLICK SETS ANYWHERE ON THE PAGE
+$(document).on("click", ".set", viewSet);
+
+function viewSet() {
+  event.preventDefault();
+  var setName = $(this).attr("data-name");
+  var queryURL = "https://api.scryfall.com/sets/" + setName
+
+  $.ajax({
+    url: queryURL,
+    method: "GET"
+  }).then(function (response) {
+    // gets 1 page per 9 cards, rounded up
+    var pageNum = Math.ceil(response.card_count / 9)
     //Sends title, icon, name and info to the summary viewer at the top
     $("#nowShowing").text("Now Viewing: " + response.name)
     $("#detInfo").text(response.card_count + " Cards, Released " + response.released_at)
