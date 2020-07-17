@@ -1,23 +1,16 @@
 // Power 9 page
-var cards = ["Black Lotus","Mox Pearl","Mox Sapphire","Mox Jet","Mox Ruby","Mox Emerald","Time Walk","Timetwister","Ancestral Recall",];
+var cards = ["Black Lotus", "Mox Pearl", "Mox Sapphire", "Mox Jet", "Mox Ruby", "Mox Emerald", "Time Walk", "Timetwister", "Ancestral Recall",];
 
 //Function that adds default cards to the binder on page load
 function renderBinder() {
-  for (var i = 0; i < cards.length; i++){
+  for (var i = 0; i < cards.length; i++) {
     $.ajax({
       method: 'GET',
       url: "https://api.scryfall.com/cards/named?fuzzy=" + cards[i]
 
-        }).then(function (response) {
-        // Retrieving the URL for the image
-        var imgURL = response.image_uris.small;
-        // Creating an element to hold the image
-        var image = $("<img>").attr("src", imgURL);
-        //Gives Modal control attributes to the card image
-        image.attr({"data-toggle": "modal","data-target": "#viewCard","data-name": response.name, "class": "mtg cardPad"});
-        // Appending the image
-        $("#binder").append(image);            
-      });
+    }).then(function (response) {
+      fetchMTG(response)
+    });
   }
 }
 
@@ -49,18 +42,19 @@ function getCard(event) {
     url: queryURL,
     method: "GET"
   }).then(function (response) {
-    // Defines the cardart response as a variable
-    var cardScan = response.image_uris.small;
-    //Defines card name as a variable
-    var cardTitle = response.name;
-    // Creates an image Element
-    var image = $("<img>").attr("src", cardScan);
-    //Gives Modal control attributes to the card image
-    image.attr({"data-toggle": "modal","data-target": "#viewCard","data-name": response.name, "class": "mtg"});
-    // Puts the card art in that element
-    $("#binder").append(image);
-    // console.log(cardTitle);
+    fetchMTG(response)
   });
+}
+
+function fetchMTG(item) {
+  // Defines the cardart response as a variable
+  var cardScan = item.image_uris.small;
+  // Creates an image Element
+  var image = $("<img>").attr("src", cardScan);
+  //Gives Modal control attributes to the card image
+  image.attr({ "data-toggle": "modal", "data-target": "#viewCard", "data-name": item.name, "class": "mtg cardPad" });
+  // Puts the card art in that element
+  $("#binder").append(image);
 }
 
 // CLICK CARDS ANYWHERE ON THE PAGE
@@ -70,7 +64,7 @@ $(document).on("click", ".mtg", viewCard);
 function viewCard() {
   event.preventDefault();
   var cardName = $(this).attr("data-name");
-  var queryURL = "https://api.scryfall.com/cards/named?fuzzy=" + cardName 
+  var queryURL = "https://api.scryfall.com/cards/named?fuzzy=" + cardName
 
   $.ajax({
     url: queryURL,
@@ -82,7 +76,7 @@ function viewCard() {
     var image = $("<img>").attr("src", viewCard);
     // Puts the card art in that element
     $("#viewer").html(image);
-  });  
+  });
 }
 
 // ADD Set BUTTON
@@ -110,32 +104,12 @@ function getSet() {
     url: queryURL,
     method: "GET"
   }).then(function (response) {
-    // gets 1 page per 9 cards, rounded up
-    var pageNum = Math.ceil(response.card_count / 9)
     //Set Symbol as a clickable button with attributes
-    var setSymbol = $("<img>").attr({"src": response.icon_svg_uri, "alt": response.name, "class": "symClean set", "data-name": response.code}) 
+    var setSymbol = $("<img>").attr({ "src": response.icon_svg_uri, "alt": response.name, "class": "symClean set", "data-name": response.code })
     //Add it to the Page
     $("#setList").append(setSymbol)
-    //Sends title, icon, name and info to the summary viewer at the top
-    $("#nowShowing").text("Now Viewing: " + response.name)
-    $("#detInfo").text(response.card_count + " Cards, Released " + response.released_at)
-    $("#setThumb").attr({"src": response.icon_svg_uri, "alt": response.name})
-    //Empty the binder 
-    $("#binder").empty();
-    //Empty the binder ring
-    $("#ring").empty();  
-    //Makes "Page" buttons on the binder when a set is searched 
-    for (var i = 0; i < pageNum; i++) {
-      //Makes button a variable
-      var pageBtn = $("<button>");
-      // Adds number attr to the page button
-      pageBtn.attr({"data-name": pageNum[i], "class": "btn btn-secondary"});
-      // Puts a number on the button
-      pageBtn.text(i+1);
-      // Adds the button to the binder ring
-      $("#ring").append(pageBtn);
-    } 
-  });  
+    fetchSet(response)
+  });
 }
 
 // CLICK SETS ANYWHERE ON THE PAGE
@@ -150,26 +124,55 @@ function viewSet() {
     url: queryURL,
     method: "GET"
   }).then(function (response) {
-    // gets 1 page per 9 cards, rounded up
-    var pageNum = Math.ceil(response.card_count / 9)
-    //Sends title, icon, name and info to the summary viewer at the top
-    $("#nowShowing").text("Now Viewing: " + response.name)
-    $("#detInfo").text(response.card_count + " Cards, Released " + response.released_at)
-    $("#setThumb").attr({"src": response.icon_svg_uri, "alt": response.name})
-    //Empty the binder 
-    $("#binder").empty();
-    //Empty the binder ring
-    $("#ring").empty();  
-    //Makes "Page" buttons on the binder when a set is searched 
-    for (var i = 0; i < pageNum; i++) {
-      //Makes button a variable 
-      var pageBtn = $("<button>");
-      // Adds number attr to the page button
-      pageBtn.attr({"data-name": pageNum[i], "class": "btn btn-secondary"});
-      // Puts a number on the button
-      pageBtn.text(i+1);
-      // Adds the button to the binder ring
-      $("#ring").append(pageBtn);
-    } 
-  });  
+    fetchSet(response)
+  });
 }
+
+function fetchSet(box) {
+  // gets 1 page per 9 cards, rounded up
+  var pageNum = Math.ceil(box.card_count / 9)
+  //Sends title, icon, name and info to the summary viewer at the top
+  $("#nowShowing").text("Now Viewing: " + box.name)
+  $("#detInfo").text(box.card_count + " Cards, Released " + box.released_at)
+  $("#setThumb").attr({ "src": box.icon_svg_uri, "alt": box.name })
+  //Empty the binder 
+  $("#binder").empty();
+  //Empty the binder ring
+  $("#ring").empty();
+  //Makes "Page" buttons on the binder when a set is searched 
+  for (var i = 0; i < pageNum; i++) {
+    //Makes button a variable 
+    var pageBtn = $("<button>");
+    // Adds number attr to the page button
+    pageBtn.attr({ "data-name": pageNum[i], "class": "btn btn-secondary set" });
+    // Puts a number on the button
+    pageBtn.text(i + 1);
+    // Adds the button to the binder ring
+    $("#ring").append(pageBtn);
+  }
+  showPage();
+}
+
+// function to grab a 9-item range of cards from a set and display them
+function showPage() {
+
+  var a = "tmp"
+  var i = 18
+  // for loop to run 9 times
+  for (i; i < 27; i++) {
+    // queryURL pieces, to later be made dynamic based on what is clicked
+    // Computer needs to think: 3 means 19-27, 9 means 73-81, etc.
+    var queryURL = "https://api.scryfall.com/cards/" + a + "/" + i
+
+    $.ajax({
+      method: 'GET',
+      url: queryURL
+    }).then(function (response) {
+      // Display the response in the binder
+      console.log(response)
+    });
+  }
+}
+
+
+

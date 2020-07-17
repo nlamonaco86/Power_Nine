@@ -16,3 +16,9 @@
     max-width: 50px;
     max-height: 50px;
 }
+
+.border{
+    border: black;
+    border-style: groove;
+    border-width: 2px;
+}
