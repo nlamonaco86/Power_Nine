@@ -115,6 +115,9 @@ function getSet() {
 // CLICK SETS ANYWHERE ON THE PAGE
 $(document).on("click", ".set", viewSet);
 
+//CLICK PAGE TABS ANYWHERE ON THE PAGE
+$(document).on("click", ".setBtn", fetchPage);
+
 function viewSet() {
   event.preventDefault();
   var setName = $(this).attr("data-name");
@@ -134,7 +137,7 @@ function fetchSet(box) {
   //Sends title, icon, name and info to the summary viewer at the top
   $("#nowShowing").text("Now Viewing: " + box.name)
   $("#detInfo").text(box.card_count + " Cards, Released " + box.released_at)
-  $("#setThumb").attr({ "src": box.icon_svg_uri, "alt": box.name })
+  $("#setThumb").attr({ "src": box.icon_svg_uri, "alt": box.name, "class": "toView symTiny", "data-name": box.code })
   //Empty the binder 
   $("#binder").empty();
   //Empty the binder ring
@@ -144,7 +147,7 @@ function fetchSet(box) {
     //Makes button a variable 
     var pageBtn = $("<button>");
     // Adds number attr to the page button
-    pageBtn.attr({ "data-name": pageNum[i], "class": "btn btn-secondary set" });
+    pageBtn.attr({ "data-name": pageNum[i], "class": "btn btn-secondary setBtn" });
     // Puts a number on the button
     pageBtn.text(i + 1);
     // Adds the button to the binder ring
@@ -153,25 +156,56 @@ function fetchSet(box) {
   showPage();
 }
 
-// function to grab a 9-item range of cards from a set and display them
-function showPage() {
-
-  var a = "tmp"
-  var i = 18
+function fetchPage() {
+  // this version always gets 19 through 27 of the set Tempest
+  var c = $(".toView").attr("data-name");
+  var d = $(this).attr("data-name");
   // for loop to run 9 times
-  for (i; i < 27; i++) {
-    // queryURL pieces, to later be made dynamic based on what is clicked
+  $("#binder").empty();
+  console.log(d)
+  // loop through the items
+  for (d; d < (d * 9) + 1; d++) {
     // Computer needs to think: 3 means 19-27, 9 means 73-81, etc.
-    var queryURL = "https://api.scryfall.com/cards/" + a + "/" + i
+    var queryURL = "https://api.scryfall.com/cards/" + c + "/" + d
 
     $.ajax({
       method: 'GET',
       url: queryURL
     }).then(function (response) {
       // Display the response in the binder
-      console.log(response)
+      fetchMTG(response);
     });
   }
+}
+
+// grab a 9-item range of cards from a set and display them
+function showPage() {
+  // defines the set to view based on the thumbnail image's attribute
+  var a = $(".toView").attr("data-name");
+  // empties the binder out before doing anything else
+  $("#binder").empty();
+  // defines array for the AJAX to go into
+  var allMyAjax = [];
+  // For loop to run through 9 times
+  for (var i = 1; i < 10; i++) {
+    // Qquery URL based on what is being requested
+    var queryURL = "https://api.scryfall.com/cards/" + a + "/" + i;
+    // Pushes all the AJAX requests into that blank array
+    allMyAjax.push($.ajax({
+      method: 'GET',
+      url: queryURL
+    }));
+  };
+  //Waits for the allMyAjax array to be done
+  Promise.all(allMyAjax)
+    // runs this function AFTER the array is full
+    .then(function (responses) {
+      // run through the now-completed array in a loop
+      for (var i = 0; i < responses.length; i++) {
+        // Display the response in the binder
+        fetchMTG(responses[i]);
+      }
+    });
 }
 
 
