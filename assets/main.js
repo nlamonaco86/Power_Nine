@@ -147,7 +147,7 @@ function fetchSet(box) {
     //Makes button a variable 
     var pageBtn = $("<button>");
     // Adds number attr to the page button
-    pageBtn.attr({ "data-name": pageNum[i], "class": "btn btn-secondary setBtn" });
+    pageBtn.attr({ "data-name": i+1, "class": "btn btn-secondary setBtn" });
     // Puts a number on the button
     pageBtn.text(i + 1);
     // Adds the button to the binder ring
@@ -163,19 +163,19 @@ function fetchPage() {
   // for loop to run 9 times
   $("#binder").empty();
   console.log(d)
-  // loop through the items
-  for (d; d < (d * 9) + 1; d++) {
-    // Computer needs to think: 3 means 19-27, 9 means 73-81, etc.
-    var queryURL = "https://api.scryfall.com/cards/" + c + "/" + d
+  // // loop through the items
+  // for (d; d < (d * 9) + 1; d++) {
+  //   // Computer needs to think: 3 means 19-27, 9 means 73-81, etc.
+  //   var queryURL = "https://api.scryfall.com/cards/" + c + "/" + d
 
-    $.ajax({
-      method: 'GET',
-      url: queryURL
-    }).then(function (response) {
-      // Display the response in the binder
-      fetchMTG(response);
-    });
-  }
+  //   $.ajax({
+  //     method: 'GET',
+  //     url: queryURL
+  //   }).then(function (response) {
+  //     // Display the response in the binder
+  //     fetchMTG(response);
+  // });
+  // }
 }
 
 // grab a 9-item range of cards from a set and display them
