@@ -92,6 +92,10 @@ $("#undoSet").on("click", function (event) {
 $("#clearSet").on("click", function (event) {
   event.preventDefault();
   $("#setList").empty();
+  $("#binder").empty();
+  $("#ring").empty();
+  $("#infoTab").empty();
+  renderBinder();
 });
 
 //AJAX to grab the set and add it to the set database
@@ -159,14 +163,14 @@ function fetchSet(box) {
 // for (e; e < f; e++) {
 
 function fetchPage() {
-  // this version always gets 19 through 27 of the set Tempest
+// fetches a specific "page" of the binder based on the set currently being viewed, and the page number 
   var c = $(".toView").attr("data-name");
   var d = $(this).attr("data-name");
   var e = ( d * 9 ) - 8 
   var f = ( d * 9 ) + 1
 
   $("#binder").empty();
-  // defines array for the AJAX to go into
+  // defines array for the AJAX requests to go into
   var allMyAjax = [];
   // For loop to run through 9 times
   for (e; e < f; e++) {
@@ -184,7 +188,7 @@ function fetchPage() {
     .then(function (responses) {
       // run through the now-completed array in a loop
       for (var i = 0; i < responses.length; i++) {
-        // Display the response in the binder
+        // Display the responses in the binder in the proper order
         fetchMTG(responses[i]);
       }
     });
@@ -208,6 +212,7 @@ function showPage() {
       url: queryURL
     }));
   };
+
   //Waits for the allMyAjax array to be done
   Promise.all(allMyAjax)
     // runs this function AFTER the array is full
