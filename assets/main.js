@@ -147,7 +147,7 @@ function fetchSet(box) {
     //Makes button a variable 
     var pageBtn = $("<button>");
     // Adds number attr to the page button
-    pageBtn.attr({ "data-name": i+1, "class": "btn btn-secondary setBtn" });
+    pageBtn.attr({ "data-name": i + 1, "class": "btn btn-secondary setBtn" });
     // Puts a number on the button
     pageBtn.text(i + 1);
     // Adds the button to the binder ring
@@ -160,22 +160,32 @@ function fetchPage() {
   // this version always gets 19 through 27 of the set Tempest
   var c = $(".toView").attr("data-name");
   var d = $(this).attr("data-name");
+  var e = ( d * 9 ) - 8 
+  var f = ( d * 9 ) + 1
+
   // for loop to run 9 times
   $("#binder").empty();
-  console.log(d)
-  // // loop through the items
-  // for (d; d < (d * 9) + 1; d++) {
-  //   // Computer needs to think: 3 means 19-27, 9 means 73-81, etc.
-  //   var queryURL = "https://api.scryfall.com/cards/" + c + "/" + d
+  console.log(e)
+  // loop through the items
+  for (e; e < f; e++) {
+    // Computer needs to think: 3 means 19-27, 9 means 73-81, etc.
+    var queryURL = "https://api.scryfall.com/cards/" + c + "/" + e
 
-  //   $.ajax({
-  //     method: 'GET',
-  //     url: queryURL
-  //   }).then(function (response) {
-  //     // Display the response in the binder
-  //     fetchMTG(response);
-  // });
-  // }
+    $.ajax({
+      method: 'GET',
+      url: queryURL
+    }).then(function (response) {
+      console.log(response.collector_number)
+  //     // Defines the cardart response as a variable
+  //     var cardScan = item.image_uris.small;
+  //     // Creates an image Element
+  //     var image = $("<img>").attr("src", cardScan);
+  //     //Gives Modal control attributes to the card image
+  //     image.attr({ "data-toggle": "modal", "data-target": "#viewCard", "data-name": item.name, "class": "mtg cardPad" });
+  //     // Puts the card art in that element
+  //     $("#binder").append(image);
+    });
+  }
 }
 
 // grab a 9-item range of cards from a set and display them
