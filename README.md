@@ -13,5 +13,5 @@ Another goal is functionality to save and share your "binders" with friends thro
 
 THe initial version will use Scryfall API for Magic: The Gathering, but eventually expand to search other sports and non-sports collectible cards 
 
-![Set Viewer Feature](assets/images/setView)
-![Card Viewer Feature](assets/images/cardView)
+![Set Viewer Feature](assets/images/setView.bmp)
+![Card Viewer Feature](assets/images/cardView.png)
