@@ -156,6 +156,8 @@ function fetchSet(box) {
   showPage();
 }
 
+// for (e; e < f; e++) {
+
 function fetchPage() {
   // this version always gets 19 through 27 of the set Tempest
   var c = $(".toView").attr("data-name");
@@ -163,29 +165,29 @@ function fetchPage() {
   var e = ( d * 9 ) - 8 
   var f = ( d * 9 ) + 1
 
-  // for loop to run 9 times
   $("#binder").empty();
-  console.log(e)
-  // loop through the items
+  // defines array for the AJAX to go into
+  var allMyAjax = [];
+  // For loop to run through 9 times
   for (e; e < f; e++) {
-    // Computer needs to think: 3 means 19-27, 9 means 73-81, etc.
-    var queryURL = "https://api.scryfall.com/cards/" + c + "/" + e
-
-    $.ajax({
+    // Qquery URL based on what is being requested
+    var queryURL = "https://api.scryfall.com/cards/" + c + "/" + e;
+    // Pushes all the AJAX requests into that blank array
+    allMyAjax.push($.ajax({
       method: 'GET',
       url: queryURL
-    }).then(function (response) {
-      console.log(response.collector_number)
-  //     // Defines the cardart response as a variable
-  //     var cardScan = item.image_uris.small;
-  //     // Creates an image Element
-  //     var image = $("<img>").attr("src", cardScan);
-  //     //Gives Modal control attributes to the card image
-  //     image.attr({ "data-toggle": "modal", "data-target": "#viewCard", "data-name": item.name, "class": "mtg cardPad" });
-  //     // Puts the card art in that element
-  //     $("#binder").append(image);
+    }));
+  };
+  //Waits for the allMyAjax array to be done
+  Promise.all(allMyAjax)
+    // runs this function AFTER the array is full
+    .then(function (responses) {
+      // run through the now-completed array in a loop
+      for (var i = 0; i < responses.length; i++) {
+        // Display the response in the binder
+        fetchMTG(responses[i]);
+      }
     });
-  }
 }
 
 // grab a 9-item range of cards from a set and display them
