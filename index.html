@@ -34,31 +34,31 @@
   <div class="jumbotron">
     <div class="container">
       <header class="container">
-        <h1>Power Nine</h1>
-        <p>Display your collection, and share it with the world.</p>
+        <h1 class="font-weight-bold text-info">Power Nine</h1>
+        <p class="font-italic">Display your collection, and share it with the world.</p>
       </header>
     </div>
   </div>
 
   <!-- Card Search -->
   <form class="container">
-    <div class="row justify-content-between">
+    <div class="row justify-content-between searchBar">
       <div>
         <label for="cardname">
           <h5>Search By Card Name: </h5>
         </label>
         <input type="text" id="cardName" placeholder="Force of Will">
-        <button type="add" id="add" class="btn btn-success">ADD</button>
-        <button type="clear" id="undo" class="btn btn-warning">UNDO</button>
+        <button type="add" id="add" class="btn btn-info">ADD</button>
+        <button type="clear" id="undo" class="btn btn-info">UNDO</button>
       </div>
       <div>
-        <button type="clear" id="clear" class="btn btn-danger">CLEAR</button>
+        <button type="clear" id="clear" class="btn-sm btn-danger">CLEAR</button>
       </div>
     </div>
   </form>
 
   <!--"Now Showing" Set Info-->
-  <div class="media container padText" id="infoTab">
+  <div class="media container" id="infoTab">
     <img id="setThumb" class="mr-3 symTiny">
     <div class="media-body">
       <h5 id="nowShowing" class="mt-0"></h5>
@@ -90,11 +90,11 @@
             <h5>Search By Set Name: </h5>
           </label>
           <input type="text" id="setName" placeholder="Tempest">
-          <button type="add" id="addSet" class="btn btn-success">ADD</button>
-          <button type="clear" id="undoSet" class="btn btn-warning">UNDO</button>
+          <button type="add" id="addSet" class="btn btn-info">ADD</button>
+          <button type="clear" id="undoSet" class="btn btn-info">UNDO</button>
         </div>
         <div>
-          <button type="clear" id="clearSet" class="btn btn-danger">CLEAR</button>
+          <button type="clear" id="clearSet" class="btn-sm btn-danger">CLEAR</button>
         </div>
       </div>
     </form>
