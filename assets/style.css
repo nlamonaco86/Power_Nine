@@ -2,8 +2,40 @@
     padding-top: 15px
 }
 
+.bg {
+    background-image: url("images/sculptorL.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+ }
+
+ .itembg{
+     background-color: white;
+}
+
 .cardPad{
     padding: 5px
+}
+
+.padtop{
+    padding-top: 50px;
+}
+
+.padfoot{
+    padding-top:100px;
+}
+
+.padtopH{
+    padding-top: 150px;
+}
+
+.padHeading{
+    padding-top: 10px;
+    padding-left: 25px;
+}
+
+.padText{
+    padding:15px;
 }
 
 .symClean{

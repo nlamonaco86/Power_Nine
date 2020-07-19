@@ -1,4 +1,4 @@
-// Power 9 page
+// default display array
 var cards = ["Black Lotus", "Mox Pearl", "Mox Sapphire", "Mox Jet", "Mox Ruby", "Mox Emerald", "Time Walk", "Timetwister", "Ancestral Recall",];
 
 //Function that adds default cards to the binder on page load
@@ -30,7 +30,6 @@ $("#undo").on("click", function (event) {
   event.preventDefault();
   $('#binder img').last().remove();
 });
-
 
 //Function to get card name froom user input and put it in the binder 
 function getCard(event) {
@@ -160,8 +159,6 @@ function fetchSet(box) {
   showPage();
 }
 
-// for (e; e < f; e++) {
-
 function fetchPage() {
 // fetches a specific "page" of the binder based on the set currently being viewed, and the page number 
   var c = $(".toView").attr("data-name");
@@ -212,7 +209,6 @@ function showPage() {
       url: queryURL
     }));
   };
-
   //Waits for the allMyAjax array to be done
   Promise.all(allMyAjax)
     // runs this function AFTER the array is full
