@@ -11,7 +11,7 @@ The viewer can now search, add, and view individual cards
 
 The viewer can also search by set, and display each set one page at a time
 
-Upcoming functionality will include the baility to save and share custom or pre-made sets
+Upcoming functionality will include the ability to save and share custom or pre-made sets
 
 Another goal is functionality to save and share your "binders" with friends through social media & e-mail etc. 
 
