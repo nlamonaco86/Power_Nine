@@ -9,16 +9,27 @@
     background-position: center;
  }
 
+ .bgMain{
+    background-image: url("images/cardback.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+ }
+
  .itembg{
      background-color: white;
 }
 
 .cardPad{
-    padding: 5px
+    padding: 1px
 }
 
 .padtop{
     padding-top: 50px;
+}
+
+.threeX{
+    max-width: 470px;
 }
 
 .padfoot{

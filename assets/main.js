@@ -1,12 +1,16 @@
 // default display array
-var cards = ["Black Lotus", "Mox Pearl", "Mox Sapphire", "Mox Jet", "Mox Ruby", "Mox Emerald", "Time Walk", "Timetwister", "Ancestral Recall",];
+// var cards = ["Black Lotus", "Mox Pearl", "Mox Sapphire", "Mox Jet", "Mox Ruby", "Mox Emerald", "Time Walk", "Timetwister", "Ancestral Recall",];
+
+//"Fun" learning-themed array
+var cards = ["Accumulated Knowledge", "Riptide Director", "Learn from the Past", "Mystical Tutor", "Tolarian Academy", "Azami Lady of Scrolls", 
+            "Pursuit of Knowledge", "Minamo School at Waters Edge", "Master Transmuter"];
 
 //Function that adds default cards to the binder on page load
 function renderBinder() {
   for (var i = 0; i < cards.length; i++) {
     $.ajax({
       method: 'GET',
-      url: "https://api.scryfall.com/cards/named?fuzzy=" + cards[i]
+      url: "https://api.scryfall.com/cards/named?fuzzy=" + cards[i] 
 
     }).then(function (response) {
       fetchMTG(response)
@@ -64,6 +68,9 @@ function viewCard() {
   event.preventDefault();
   var cardName = $(this).attr("data-name");
   var queryURL = "https://api.scryfall.com/cards/named?fuzzy=" + cardName
+
+// This fixes viewer issue but only in set view, not in "free-view" - needs and if/else 
+//  + "&set=" + $(".toView").attr("data-name");
 
   $.ajax({
     url: queryURL,
