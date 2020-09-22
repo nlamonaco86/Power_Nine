@@ -37,13 +37,13 @@ $("#undo").on("click", (event) => {
 });
 
 //Function to get card name froom user input and put it in the binder 
-const getCard = (event) => {
+function getCard(event) {
   event.preventDefault();
 
   $.ajax({
     url: "https://api.scryfall.com/cards/named?fuzzy=" + $("#cardName").val().trim(),
     method: "GET"
-  }).then((response) => {
+  }).then(function (response) {
     fetchMTG(response)
   });
 }
@@ -59,14 +59,14 @@ const fetchMTG = (item) => {
 $(document).on("click", ".mtg", viewCard);
 
 // CARD VIEWER FEATURE
-const viewCard = (event) => {
+function viewCard(event) {
   event.preventDefault();
 // This fixes viewer issue but only in set view, not in "free-view" - needs and if/else 
 //  + "&set=" + $(".toView").attr("data-name");
   $.ajax({
     url: "https://api.scryfall.com/cards/named?fuzzy=" + $(this).attr("data-name"),
     method: "GET"
-  }).then((response) => {
+  }).then(function (response) {
     // Creates an image Element
     let image = $("<img>").attr("src", response.image_uris.large);
     // Puts the card art in that element
@@ -78,13 +78,13 @@ const viewCard = (event) => {
 $("#addSet").on("click", getSet);
 
 // UNDO Set Button
-$("#undoSet").on("click", (event) => {
+$("#undoSet").on("click", function (event) {
   event.preventDefault();
   $('#setList img').last().remove();
 });
 
 //CLEAR Set BUTTON
-$("#clearSet").on("click", (event) => {
+$("#clearSet").on("click", function (event) {
   event.preventDefault();
   $("#setList").empty();
   $("#binder").empty();
@@ -94,13 +94,13 @@ $("#clearSet").on("click", (event) => {
 });
 
 //AJAX to grab the set and add it to the set database
-const getSet = (event) => {
+function getSet(event) {
   event.preventDefault();
 
   $.ajax({
     url: "https://api.scryfall.com/sets/" + $("#setName").val().trim(),
     method: "GET"
-  }).then((response) => {
+  }).then(function (response) {
     //Set Symbol as a clickable button with attributes
     let setSymbol = $("<img>").attr({ "src": response.icon_svg_uri, "alt": response.name, "class": "symClean set", "data-name": response.code })
     //Add it to the Page
@@ -115,18 +115,18 @@ $(document).on("click", ".set", viewSet);
 //CLICK PAGE TABS ANYWHERE ON THE PAGE
 $(document).on("click", ".setBtn", fetchPage);
 
-const viewSet = (event) => {
+function viewSet(event) {
   event.preventDefault();
 
   $.ajax({
     url: "https://api.scryfall.com/sets/" + $(this).attr("data-name"),
     method: "GET"
-  }).then((response) => {
+  }).then(function (response) {
     fetchSet(response)
   });
 }
 
-const fetchSet = (box) => {
+function fetchSet(box) {
   // gets 1 page per 9 cards, rounded up
   //Sends title, icon, name and info to the summary viewer at the top
   $("#nowShowing").text("Now Viewing: " + box.name)
@@ -149,7 +149,7 @@ const fetchSet = (box) => {
   showPage();
 }
 
-const fetchPage = () => {
+function fetchPage() {
 // fetches a specific "page" of the binder based on the set currently being viewed, and the page number 
   let c = $(".toView").attr("data-name");
   let d = $(this).attr("data-name");
@@ -170,7 +170,7 @@ const fetchPage = () => {
   //Waits for the allMyAjax array to be done
   Promise.all(allMyAjax)
     // runs this function AFTER the array is full
-    .then((responses) => {
+    .then(function (responses) {
       // run through the now-completed array in a loop
       for (let i = 0; i < responses.length; i++) {
         // Display the responses in the binder in the proper order
@@ -180,7 +180,7 @@ const fetchPage = () => {
 }
 
 // grab a 9-item range of cards from a set and display them
-const showPage = () => {
+function showPage() {
   // defines the set to view based on the thumbnail image's attribute
   let a = $(".toView").attr("data-name");
   // empties the binder out before doing anything else
@@ -189,6 +189,7 @@ const showPage = () => {
   let allMyAjax = [];
   // For loop to run through 9 times
   for (let i = 1; i < 10; i++) {
+    // Qquery URL based on what is being requested
     // Pushes all the AJAX requests into that blank array
     allMyAjax.push($.ajax({
       method: 'GET',
@@ -198,7 +199,7 @@ const showPage = () => {
   //Waits for the allMyAjax array to be done
   Promise.all(allMyAjax)
     // runs this function AFTER the array is full
-    .then((responses) => {
+    .then(function (responses) {
       // run through the now-completed array in a loop
       for (let i = 0; i < responses.length; i++) {
         // Display the response in the binder
