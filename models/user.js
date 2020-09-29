@@ -2,7 +2,7 @@
 const bcrypt = require("bcryptjs");
 
 // User model
-module.exports = function(sequelize, DataTypes) {
+module.exports = function (sequelize, DataTypes) {
   const User = sequelize.define("User", {
     // The email cannot be null, and must be a proper email before creation
     name: {
@@ -26,13 +26,29 @@ module.exports = function(sequelize, DataTypes) {
       default: "./assets/default.jpg"
     }
   });
+  // User can have many Cards
+  User.associate = function (models) {
+    User.hasMany(models.Card, {
+      foreignKey: {
+        allowNull: false
+      }
+    });
+  };
+  // User can have many Sets
+  User.associate = function (models) {
+    User.hasMany(models.Set, {
+      foreignKey: {
+        allowNull: false
+      }
+    });
+  }
   // Creating a custom method for User model. This will check if an unhashed password entered by the user can be compared to the hashed password stored in the database
-  User.prototype.validPassword = function(password) {
+  User.prototype.validPassword = function (password) {
     return bcrypt.compareSync(password, this.password);
   };
   // Hooks run during various phases of the User Model lifecycle
   // Before a User is created, automatically hash their password
-  User.addHook("beforeCreate", function(user) {
+  User.addHook("beforeCreate", function (user) {
     user.password = bcrypt.hashSync(user.password, bcrypt.genSaltSync(10), null);
   });
   return User;
