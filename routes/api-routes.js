@@ -20,15 +20,8 @@ module.exports = function (app) {
   app.post("/api/signup", function (req, res) {
     db.User.create({
       name: req.body.name,
-      sex: req.body.sex,
-      age: req.body.age,
-      goal: req.body.goal,
       email: req.body.email,
       password: req.body.password,
-      dumbbell: req.body.dumbbell,
-      barbell: req.body.barbell,
-      machine: req.body.machine,
-      proficiency: req.body.proficiency
     })
       .then(function () {
         res.redirect(307, "/api/login");
@@ -56,15 +49,6 @@ module.exports = function (app) {
         name: req.user.name,
         email: req.user.email,
         id: req.user.id,
-        sex: req.user.sex,
-        age: req.user.age,
-        height: req.user.height,
-        weight: req.user.weight,
-        goal: req.user.goal,
-        proficiency: req.user.proficiency,
-        dumbell: req.user.dumbbell,
-        barbell: req.user.barbell,
-        machine: req.user.machine,
         profilePic: req.user.profilePic,
         cloudUploadName: process.env.CLOUDINARY_CLOUDNAME,
         cloudUploadPreset: process.env.CLOUDINARY_UPLOAD_PRESET
@@ -88,84 +72,15 @@ module.exports = function (app) {
         });
     }
   });
-  // ********************************** EXERCISES ******************************************** //
-  // add an exercise to the database (admin only, eventually)
-  app.post("/api/exercises", function (req, res) {
-    db.Exercise.create({
-      exerName: req.body.exerName,
-      main: req.body.main,
-      alternate: req.body.alternate,
-      auxillary: req.body.auxillary,
-      equipment: req.body.equipment,
-      upper: req.body.upper,
-      push: req.body.push,
-      compound: req.body.compound
-    })
-      .then(function () {
-        console.log(res)
-      })
-      .catch(function (err) {
-        res.status(401).json(err);
-      });
-  });
-  // PERSONALIZE user
-  app.get("/api/personalize/:id", function (req, res) {
-    db.User.findOne({
+  // ********************************** SET FINDING ******************************************** //
+  app.get("/api/sets/:id", function (req, res) {
+    db.Set.findAll({
       where: {
-        id: req.params.id
+        UserId: req.params.id
       }
     })
       .then(result => {
         res.json(result);
       });
   });
-  // FIND exercises
-  app.get("/api/exercises/:muscle", function (req, res) {
-    db.Exercise.findAll({
-      where: {
-        main: req.params.muscle
-      }
-    })
-      .then(exercises => {
-        res.json(exercises);
-      });
-  });
-
-  app.get("/api/exercises/:muscle/anySecondary/:equipReq", function (req, res) {
-    db.Exercise.findAll({
-      where: {
-        main: req.params.muscle,
-        equipment: req.params.equipReq
-      }
-    })
-      .then(exercises => {
-        res.json(exercises);
-      });
-  });
-
-  app.get("/api/exercises/:muscle/:secondaryMuscle/anyEquip", function (req, res) {
-    db.Exercise.findAll({
-      where: {
-        main: req.params.muscle,
-        alternate: req.params.secondaryMuscle
-      }
-    })
-      .then(exercises => {
-        res.json(exercises);
-      });
-  });
-
-  app.get("/api/exercises/:muscle/:secondaryMuscle/:equipReq", function (req, res) {
-    db.Exercise.findAll({
-      where: {
-        main: req.params.muscle,
-        alternate: req.params.secondaryMuscle,
-        equipment: req.params.equipReq
-      }
-    })
-      .then(exercises => {
-        res.json(exercises);
-      });
-  });
-
-};
+}

@@ -3,10 +3,20 @@ function personalizePage() {
     $.ajax("/api/user_data/", {
         type: "GET"
     }).then(function (response) {
+        let id = response.id
         //fill out the user's profile section
         $("#profilePic").attr("src", response.profilePic);
         $("#userName").text(response.name);
-        console.log(response);
+
+        //Request the list of User's sets from Our API 
+        $.ajax("/api/sets/" + id, {
+          type: "GET"
+      }).then(function (response) {
+        // loop through the user's sets to populate the form options 
+        for (let i=0; i < response.length; i++){
+        $("#setOptions").append(`<option>${response[i].setName}</option>`)
+        }
+      })
     });
 }
 personalizePage();
