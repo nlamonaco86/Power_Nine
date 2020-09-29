@@ -1,10 +1,10 @@
 -- USER SEEDS
 -- PASSWORD is "Magic93" for all users
 INSERT INTO users (name, email, password, profilePic, createdAt, updatedAt)
-VALUES ('Gerrard', 'gerrard@weatherlight.com', '$10$dDWqPWq509W15SmnyaNHNeLgK0jU../MzsDWFQSMSVhor01F5kIbO', '', '2020-09-29 17:45:51', '2020-09-29 17:45:51' ),
-('Hanna', 'hanna@weatherlight.com', '$10$dDWqPWq509W15SmnyaNHNeLgK0jU../MzsDWFQSMSVhor01F5kIbO', '', '2020-09-29 17:45:51', '2020-09-29 17:45:51' ),
-('Karn', 'karn@weatherlight.com', '$10$dDWqPWq509W15SmnyaNHNeLgK0jU../MzsDWFQSMSVhor01F5kIbO', '', '2020-09-29 17:45:51', '2020-09-29 17:45:51' ),
-('Squee', 'squee@weatherlight.com', '$10$dDWqPWq509W15SmnyaNHNeLgK0jU../MzsDWFQSMSVhor01F5kIbO', '', '2020-09-29 17:45:51', '2020-09-29 17:45:51' )
+VALUES ('Gerrard', 'gerrard@weatherlight.com', '$10$dDWqPWq509W15SmnyaNHNeLgK0jU../MzsDWFQSMSVhor01F5kIbO', './assets/gerrard.jpg', '2020-09-29 17:45:51', '2020-09-29 17:45:51' ),
+('Hanna', 'hanna@weatherlight.com', '$10$dDWqPWq509W15SmnyaNHNeLgK0jU../MzsDWFQSMSVhor01F5kIbO', './assets/hanna.jpg', '2020-09-29 17:45:51', '2020-09-29 17:45:51' ),
+('Karn', 'karn@weatherlight.com', '$10$dDWqPWq509W15SmnyaNHNeLgK0jU../MzsDWFQSMSVhor01F5kIbO', './assets/karn.jpg', '2020-09-29 17:45:51', '2020-09-29 17:45:51' ),
+('Squee', 'squee@weatherlight.com', '$10$dDWqPWq509W15SmnyaNHNeLgK0jU../MzsDWFQSMSVhor01F5kIbO', './assets/squee.jpg', '2020-09-29 17:45:51', '2020-09-29 17:45:51' )
 
 -- 3 Sets that belong to each user
 -- Karn is not very creative

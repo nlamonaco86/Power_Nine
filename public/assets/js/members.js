@@ -27,6 +27,26 @@ $("form.update").on("submit", function (event) {
   console.log("update");
 })
 
+function populateUsers() {
+  $.ajax("/api/user_data/all", {
+    type: "GET"
+  }).then(function (response) {
+    $("#traders").empty();
+    //loop through the user data and populate the trade section
+    for (let i = 0; i < response.length; i++) {
+      $("#traders").append(`
+      <div class="col-lg-2 white shadow pad">
+      <div class="d-flex justify-content-center"><img src="${response[i].profilePic}" alt="user pic" class="d-flex justify-content-center img-round"></div>
+        <h3 class="d-flex justify-content-center">${response[i].name}</h3>
+        <div class="d-flex justify-content-center">
+          <button class="btn-lg btn-circle bg-purple text-light" data-name="${response[i].id}"><i class="fa fa-exchange-alt fa-2x text-light"></i></button>
+        </div>
+      </div>`)
+    }
+  })
+}
+populateUsers();
+
 //~~~~~~~~~~~~~~~~~~~~~~~~~~ CARD SEARCH FUNCTIONS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
 $(".searchCard").on("submit", getCard);
 
@@ -73,38 +93,6 @@ function viewCard(event) {
 // RECALL A SET AND DISPLAY IT IN THE VIEWER
 $("form.mySets").on("submit", getSet)
 
-// function getSet(event) {
-//   event.preventDefault();
-//   // prepare the viewer
-//   $("#viewer").empty();
-
-//   let setId = $(this).find(':selected').attr('data-id')
-//   // Search Our CARDS database for all that belong that that SetID
-//   $.ajax("/api/cards/" + setId, {
-//     type: "GET"
-//   }).then(function (response) {
-//     console.log(response)
-//     // Ask the Scryfall API (on loop) for current and detailed card information
-//     for (let i = 0; i < response.length; i++) {
-//       $.ajax({
-//         url: "https://api.scryfall.com/cards/named?fuzzy=" + response[i].cardName,
-//         method: "GET"
-//       }).then(function (response) {
-//           // loop through the responses and populate the viewer
-//           for (let i = 0; i < response.length; i++) {
-//             $("#myCards").append(`<tr>
-//               <td scope="col" data-name="${response[i].name}" class="mtg">${response[i].name}</td>
-//               <td scope="col">${response[i].rarity}</td>
-//               <td scope="col">${response[i].set_name}</td>
-//               <td scope="col">${response[i].type_line}</td>
-//               </tr>`);
-//             $("#viewer").append(`<img class="half" src=${response[i].image_uris.normal}>`);
-//           }
-//         })
-//     }
-//   })
-// }
-
 function getSet(event) {
   event.preventDefault();
 
@@ -119,9 +107,9 @@ function getSet(event) {
       // Pushes all the AJAX requests into that blank array
       allMyAjax.push(
         $.ajax({
-        method: 'GET',
-        url: "https://api.scryfall.com/cards/named?fuzzy=" + response[i].cardName
-      }));
+          method: 'GET',
+          url: "https://api.scryfall.com/cards/named?fuzzy=" + response[i].cardName
+        }));
     };
     //Waits for the allMyAjax array to be done
     Promise.all(allMyAjax)

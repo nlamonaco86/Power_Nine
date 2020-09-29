@@ -72,6 +72,14 @@ module.exports = function (app) {
         });
     }
   });
+  // GET all users for trade info section
+  app.get("/api/user_data/all", function (req, res) {
+    db.User.findAll({})
+      .then(result => {
+         res.json(result);
+      });
+  });
+
   // ********************************** SET FINDING ******************************************** //
   // SELECT * FROM sets WHERE UserID = ?
   app.get("/api/sets/:id", function (req, res) {
