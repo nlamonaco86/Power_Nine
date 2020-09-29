@@ -1,7 +1,7 @@
 // Set model
 // Since most of the resulting data comes from Scryfall API, this really only needs to 
-// keep track of the Set name, and what user and set it belongs to.
-// Sets are part of a Set, Sets are part of The Collection. Sets, Sets, belong to a User, who has only one Collection.  
+// keep track of the Set name, what userit belongs to, and what cards are in it.
+// Cards are part of a Set, Sets and Cards belong to a User, the entirety of everything they "own" is their Collection.  
 module.exports = function (sequelize, DataTypes) {
     const Set = sequelize.define("Set", {
         setName: {
