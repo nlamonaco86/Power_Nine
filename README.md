@@ -1,21 +1,31 @@
-# Power_Nine
-A virtual collectible card binder 
+# power Nine
 
-by Nicholas La Monaco
+## Description
 
-This is application intended to virtually display a trading card collection, just like you would in a physical binder
+power Nine is a full-stack application using Node.js, Express, MySQL, Sequelize, Passport, Handlebars, JQuery and Bootstrap. 
 
-This will be able to search for cards and display them on a 3x3 grid, and turn the page backwards or forwards as you would in a physical binder
+Users can signup and create a personalized account. Afterwards, they are able to search, view, and build a virtual representation of
+their Magic: The Gathering collection within the viewer. 
 
-The viewer can now search, add, and view individual cards
+Currently in Development: Users can save their displayed cards within a Set in their Collection that can be recalled and viewed.
 
-The viewer can also search by set, and display each set one page at a time
+Future Developments: Users can send and receive requests to trade with other users on the site. 
 
-Upcoming functionality will include the ability to save and share custom or pre-made sets
+## Deployed Site:
 
-Another goal is functionality to save and share your "binders" with friends through social media & e-mail etc. 
 
-THe initial version will use Scryfall API for Magic: The Gathering, but eventually expand to search other sports and non-sports collectible cards 
+## Table of Contents
 
-![Set Viewer Feature](assets/images/setView.png)
-![Card Viewer Feature](assets/images/cardView.bmp)
+* [Installation](#installation)
+* [Usage](#usage)
+
+## Installation
+
+Simply clone the repo, and/or visit the deployed page link to begin.
+
+## Usage
+![power Nine](./public/assets/screenshot.png)  
+
+## Questions
+
+Contact [Nlamonaco86](mailto:nlamonaco86@gmail.com) with any questions or suggestions!

@@ -32,6 +32,10 @@
   background-color: indigo;
 }
 
+.half{
+  max-width: 100%;
+}
+
 .updater {
   width: 100%;
   height: 100px;
