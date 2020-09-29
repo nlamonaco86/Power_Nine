@@ -73,10 +73,22 @@ module.exports = function (app) {
     }
   });
   // ********************************** SET FINDING ******************************************** //
+  // SELECT * FROM sets WHERE UserID = ?
   app.get("/api/sets/:id", function (req, res) {
     db.Set.findAll({
       where: {
         UserId: req.params.id
+      }
+    })
+      .then(result => {
+        res.json(result);
+      });
+  });
+  // SELECT * FROM cards WHERE setId = ?
+  app.get("/api/cards/:setId", function (req, res) {
+    db.Card.findAll({
+      where: {
+        SetId: req.params.setId
       }
     })
       .then(result => {
