@@ -37,7 +37,10 @@ Card viewer in action
 ![power Nine](./public/assets/screenshot.png)  
 
 User Profiles in the Trades section, populated by database
-![trades](./public/assets/trades.png)
+![trade profiles](./public/assets/trades.png)
+
+Trade Section Usage
+![trade section](./public/assets/screenshot2.png)
 
 ## Questions
 

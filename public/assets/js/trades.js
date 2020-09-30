@@ -45,6 +45,7 @@ populateUsers();
 // add their profile pic, and sets they own
 $("form.tradeWith").on("submit", function (event) {
     event.preventDefault();
+    $("#theyTrade").empty();
     let id = $("#tradeWith").val();
 
     $.ajax("/api/user_data/" + id, {
