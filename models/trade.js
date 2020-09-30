@@ -10,17 +10,21 @@ module.exports = function (sequelize, DataTypes) {
       allowNull: false
     },
     receiverID: {
-        type: DataTypes.INTEGER,
-        allowNull: false
-      },
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    message: {
+      type: DataTypes.STRING,
+      default: null,
+    },
     sendCard: {
       type: DataTypes.STRING,
       allowNull: false,
     },
     receiveCard: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
   });
   return Trade;
 };

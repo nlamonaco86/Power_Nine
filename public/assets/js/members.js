@@ -7,7 +7,7 @@ function personalizePage() {
     //fill out the user's profile section
     $("#profilePic").attr("src", response.profilePic);
     $("#userName").text(response.name);
-    $("#userName").attr(`data-id="${response[i].id}`);
+    $("#userName").attr(`data-id="${response.id}`);
 
     //Request the list of User's sets from Our API 
     $.ajax("/api/sets/" + id, {
@@ -28,6 +28,7 @@ $("form.update").on("submit", function (event) {
   console.log("update");
 })
 
+// Populate the Traders section
 function populateUsers() {
   $.ajax("/api/user_data/all", {
     type: "GET"

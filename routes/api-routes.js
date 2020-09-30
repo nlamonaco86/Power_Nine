@@ -79,14 +79,21 @@ module.exports = function (app) {
          res.json(result);
       });
   });
+    // GET SINGLE user for trade info section
+    app.get("/api/user_data/:id", function (req, res) {
+      db.User.findOne({
+        where: { id: req.params.id }
+      })
+        .then(result => {
+           res.json(result);
+        });
+    });
 
   // ********************************** SET FINDING ******************************************** //
   // SELECT * FROM sets WHERE UserID = ?
   app.get("/api/sets/:id", function (req, res) {
     db.Set.findAll({
-      where: {
-        UserId: req.params.id
-      }
+      where: { UserId: req.params.id }
     })
       .then(result => {
         res.json(result);
@@ -95,9 +102,7 @@ module.exports = function (app) {
   // SELECT * FROM cards WHERE setId = ?
   app.get("/api/cards/:setId", function (req, res) {
     db.Card.findAll({
-      where: {
-        SetId: req.params.setId
-      }
+      where: { SetId: req.params.setId }
     })
       .then(result => {
         res.json(result);
