@@ -128,6 +128,7 @@ $("form.mySets").on("submit", function (event) {
     })
 })
 
+// Submit a Trade
 $("form.tradeForm").on("submit", function (event) {
     event.preventDefault();
     
@@ -138,5 +139,13 @@ $("form.tradeForm").on("submit", function (event) {
         receiver: $("#receiver").text()
     }
 
-    console.log(tradeData)
+    $.ajax("/api/trades/", {
+        type: "POST",
+        data: tradeData
+
+    }).then(function (response) {
+
+        console.log(response)
+    })
+    
 })

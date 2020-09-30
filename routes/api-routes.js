@@ -76,18 +76,18 @@ module.exports = function (app) {
   app.get("/api/user_data/all", function (req, res) {
     db.User.findAll({})
       .then(result => {
-         res.json(result);
+        res.json(result);
       });
   });
-    // GET SINGLE user for trade info section
-    app.get("/api/user_data/:id", function (req, res) {
-      db.User.findOne({
-        where: { id: req.params.id }
-      })
-        .then(result => {
-           res.json(result);
-        });
-    });
+  // GET SINGLE user for trade info section
+  app.get("/api/user_data/:id", function (req, res) {
+    db.User.findOne({
+      where: { id: req.params.id }
+    })
+      .then(result => {
+        res.json(result);
+      });
+  });
 
   // ********************************** SET FINDING ******************************************** //
   // SELECT * FROM sets WHERE UserID = ?
@@ -99,6 +99,7 @@ module.exports = function (app) {
         res.json(result);
       });
   });
+
   // SELECT * FROM cards WHERE setId = ?
   app.get("/api/cards/:setId", function (req, res) {
     db.Card.findAll({
@@ -106,6 +107,24 @@ module.exports = function (app) {
     })
       .then(result => {
         res.json(result);
+      });
+  });
+
+
+  // ********************** TRADING ***************************************** // 
+  app.post("/api/trades", function (req, res) {
+    console.log(req.body)
+    db.Trade.create({
+      senderID: req.body.sender,
+      receiverID: req.body.receiver,
+      sendCard: req.body.iTrade,
+      receiveCard: req.body.theyTrade
+    })
+      .then(function () {
+        res.send("success")
+      })
+      .catch(function (err) {
+        res.status(401).json(err);
       });
   });
 }
