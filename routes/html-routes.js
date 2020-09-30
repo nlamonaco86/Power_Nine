@@ -28,6 +28,11 @@ module.exports = function(app) {
     res.sendFile(path.join(__dirname, "../public/members.html"));
   });
 
+  app.get("/about", function(req, res) {
+    // If the user already has an account send them to the members page
+    res.sendFile(path.join(__dirname, "../public/about.html"));
+  });
+
 };
 
 // // Requiring path to so we can use relative routes to our HTML files

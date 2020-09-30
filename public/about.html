@@ -11,7 +11,6 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://widget.cloudinary.com/v2.0/global/all.js" type="text/javascript"></script>
-    <script type="text/javascript" src="./assets/js/members.js" defer></script>
     <script src="https://kit.fontawesome.com/6337599472.js"></script>
 </head>
 
@@ -50,7 +49,7 @@
                         </button>
                         <div class="dropdown-menu">
                             <div class="d-flex justify-content-center">
-                            <img src="" id="profilePic" alt="user pic" class="img-round">
+                                <img src="" id="profilePic" alt="user pic" class="img-round">
                             </div>
                             <p class="dropdown-item" id="userName"></p>
                             <div class="dropdown-divider"></div>
@@ -74,92 +73,82 @@
         </div>
     </nav>
 
-    <section class="container" id="cardSearch">
-        <h1 class="display-4">Card Viewer</h1>
-        <h2 class="lead">Build your collection using the Scryfall API.</h2>
+    <section class="container" id="about">
+        <h1 class="display-4">About</h1>
+        <h2 class="lead">What is power Nine?</h2>
         <div class="row padtop">
-            <div class="col-lg-2 bg-form shadow radius maxheight">
-                <form class="searchCard">
-                    <div class="form-group">
-                        <label for="exampleFormControlSelect1">Card Name:</label>
-                        <input class="form-control" id="cardName"></input>
-                    </div>
-                    <button type="submit" class="btn-lg btn-circle bg-purple text-light"><i
-                            class="fa fa-search fa-2x text-light"></i></button>
-                </form>
-                 <form class="mySets padtop">
-                    <div class="form-group">
-                        <label for="exampleFormControlSelect1">Set Name:</label>
-                        <select class="form-control" id="setOptions">
 
-                        </select>
+            <div class="pad col-lg-6">
+                <div class="bg-form shadow radius">
+                    <h4 class="card-title display-4 d-flex justify-content-center">Contact</h4>
+                    <div class="d-flex flex-row justify-content-around pad">
+                        <a href="tel:9083379307"><i class="fas fa-5x fa-phone text-success"></i></a>
+                        <a href="mailto:nlamonaco86@gmail.com" target="_blank"><i
+                                class="fas fa-5x fa-envelope text-warning"></i></a>
                     </div>
-                    <button type="submit" class="btn-lg btn-circle bg-purple text-light"><i
-                            class="fa fa-eye fa-2x text-light"></i></button>
-                </form>
+                </div>
             </div>
 
-            <div class="col-lg-3" id="viewer">
-                <img class="half"
-                    src="https://c1.scryfall.com/file/scryfall-cards/normal/front/b/d/bd8fa327-dd41-4737-8f19-2cf5eb1f7cdd.jpg?1562933099">
-            </div>
+            <div class="pad col-lg-6">
+                <div class="bg-form shadow radius">
 
-            <div class="col-lg-7">
-                <table class="table shadow">
-                    <thead class="thead bg-purple text-light radius">
-                        <tr>
-                            <th scope="col">Card</th>
-                            <th scope="col">Rarity</th>
-                            <th scope="col">Set</th>
-                            <th scope="col">Type</th>
-                        </tr>
-                    </thead>
-                    <tbody class="bg-form" id="myCards">
-                        <!-- Card Data Goes Here -->
-                    </tbody>
-                </table>
+                    <h4 class="card-title display-4 d-flex justify-content-center">Links</h4>
+                    <div class="d-flex flex-row justify-content-around pad">
+                        <a href="http://github.com/nlamonaco86" target="_blank"><i
+                                class="fab fa-5x fa-github text-dark"></i></a>
+                        <a href="./assets/resume.pdf" target="_blank"><i
+                                class="fas fa-5x fa-file-pdf text-danger"></i></a>
+                        <a href="https://www.linkedin.com/in/nicholas-la-monaco-98b5501b3/" target="_blank"><i
+                                class="fab fa-5x fa-linkedin text-info"></i></a>
+
+                    </div>
+                </div>
             </div>
 
         </div>
-        <!-- <h1 class="display-4">My Sets</h1>
-        <h2 class="lead">View or Modify your sets.</h2>
         <div class="row padtop">
-            <div class="col-lg-3 bg-form shadow radius">
-                <form class="mySets">
-                    <div class="form-group">
-                        <label for="exampleFormControlSelect1">Set Name:</label>
-                        <select class="form-control" id="setOptions">
-
-                        </select>
-                    </div>
-                    <button type="submit" class="btn-lg btn-circle bg-purple text-light"><i
-                            class="fa fa-eye fa-2x text-light"></i></button>
-                </form>
+            <div class="pad col-lg-6">
+                <div class="bg-form shadow radius">
+                    <p><span class="text-purple font-weight-bold">power Nine
+                        </span>began as a hobby project and learning exercise in DOM maniuplation and AJAX calls,
+                        utiliziting Bootstrap, jQuery, and the Scryfall API
+                        to search for and display images of Magic: The Gathering cards.</p>
+                    <p>After the initial version was complete, I began to learn more about other, more detailed
+                        technologies that could transform my page into something far more detailed and interesting.
+                        Utilizing Node.js, Express MySQL, and Sequelize, I was able to now
+                        build out a fully-functional server and database structure with which the end user and the
+                        Scryfall API could both interact with.</p>
+                    <p>This allows users the ability to
+                        save their collections and cards to the database, and with a functional user authentication
+                        system in Passport, keep their information and account secure. Users can then
+                        view the sets owned by other users, and request a trade.</p>
+                </div>
             </div>
-        </div> -->
-    </section>
-    <section class="container">
-        <h1 class="display-4">Trade</h1>
-        <h2 class="lead">Offer or Request trades.</h2>
-        <div class="row padtop d-flex justify-content-around" id="traders">
-     
+            <div class="pad col-lg-6">
+                <div class="bg-form shadow radius">
+                    <p>Although <span class="text-purple font-weight-bold">power Nine
+                        </span> is themed around Magic: The Gathering and its associated characters appear as the users,
+                        no knowledge of the actual game is required for this demonstration. </p>
+                    <p>The application is intended as a demonstration of my understanding of the associated technologies
+                        and
+                        their uses, and the concepts are displayed in action here. I believe an important part of
+                        learning is knowledge
+                        transferrence, and I am able to adapt what has been done here to apply in a number of different
+                        scenarios that
+                        are commonly found in real-world settings.
+                    </p>
+                    <p>power Nine is unofficial Fan Content permitted under the <a
+                            href="https://company.wizards.com/fancontentpolicy" class="text-purple font-weight-bold">Fan
+                            Content Policy.</a> Not approved/endorsed by Wizards. Portions of the materials used are
+                        property of Wizards of the Coast. ©Wizards of the Coast LLC.</p>
+                </div>
+            </div>
         </div>
     </section>
-
     <!-- Button trigger modal
     <button type="button" class="btn btn-purple pad" data-toggle="modal" data-target="#updateUser">
         Update My Profile
     </button> -->
-
-    <!-- Card View Modal -->
-    <!-- <div class="modal fade" id="viewCard" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                </div>
-                <div id="viewer"></div>
-            </div>
-        </div> -->
 
     <!-- Update Profile Modal -->
     <div class="modal fade" id="updateUser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
