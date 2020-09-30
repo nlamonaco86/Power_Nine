@@ -75,7 +75,7 @@
         <h1 class="display-4">Card Viewer</h1>
         <h2 class="lead">Build your collection using the Scryfall API.</h2>
         <div class="row padtop">
-            <div class="col-lg-2 bg-form shadow">
+            <div class="col-lg-2 bg-form shadow radius maxheight">
                 <form class="searchCard">
                     <div class="form-group">
                         <label for="exampleFormControlSelect1">Card Name:</label>
@@ -83,6 +83,16 @@
                     </div>
                     <button type="submit" class="btn-lg btn-circle bg-purple text-light"><i
                             class="fa fa-search fa-2x text-light"></i></button>
+                </form>
+                 <form class="mySets padtop">
+                    <div class="form-group">
+                        <label for="exampleFormControlSelect1">Set Name:</label>
+                        <select class="form-control" id="setOptions">
+
+                        </select>
+                    </div>
+                    <button type="submit" class="btn-lg btn-circle bg-purple text-light"><i
+                            class="fa fa-eye fa-2x text-light"></i></button>
                 </form>
             </div>
 
@@ -93,7 +103,7 @@
 
             <div class="col-lg-7">
                 <table class="table shadow">
-                    <thead class="thead bg-purple text-light">
+                    <thead class="thead bg-purple text-light radius">
                         <tr>
                             <th scope="col">Card</th>
                             <th scope="col">Rarity</th>
@@ -108,10 +118,10 @@
             </div>
 
         </div>
-        <h1 class="display-4">My Sets</h1>
+        <!-- <h1 class="display-4">My Sets</h1>
         <h2 class="lead">View or Modify your sets.</h2>
         <div class="row padtop">
-            <div class="col-lg-3 bg-form shadow">
+            <div class="col-lg-3 bg-form shadow radius">
                 <form class="mySets">
                     <div class="form-group">
                         <label for="exampleFormControlSelect1">Set Name:</label>
@@ -123,7 +133,7 @@
                             class="fa fa-eye fa-2x text-light"></i></button>
                 </form>
             </div>
-        </div>
+        </div> -->
     </section>
     <section class="container">
         <h1 class="display-4">Trade</h1>

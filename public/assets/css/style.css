@@ -91,6 +91,14 @@
     max-width: 140px;
   }
 
+.radius{
+  border-radius:10px;
+}
+
+.maxheight{
+  max-height: 320px
+}
+
 .padhead{
   padding-top: 10px
 }

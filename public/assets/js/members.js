@@ -7,6 +7,7 @@ function personalizePage() {
     //fill out the user's profile section
     $("#profilePic").attr("src", response.profilePic);
     $("#userName").text(response.name);
+    $("#userName").attr(`data-id="${response[i].id}`);
 
     //Request the list of User's sets from Our API 
     $.ajax("/api/sets/" + id, {
@@ -34,14 +35,17 @@ function populateUsers() {
     $("#traders").empty();
     //loop through the user data and populate the trade section
     for (let i = 0; i < response.length; i++) {
+      // show all other users except the user who is logged in
+      if (response[i].name !== $("#userName").text()){
       $("#traders").append(`
-      <div class="col-lg-2 white shadow pad">
+      <div class="col-lg-2 white shadow pad radius">
       <div class="d-flex justify-content-center"><img src="${response[i].profilePic}" alt="user pic" class="d-flex justify-content-center img-round"></div>
         <h3 class="d-flex justify-content-center">${response[i].name}</h3>
         <div class="d-flex justify-content-center">
           <button class="btn-lg btn-circle bg-purple text-light" data-name="${response[i].id}"><i class="fa fa-exchange-alt fa-2x text-light"></i></button>
         </div>
       </div>`)
+      }
     }
   })
 }

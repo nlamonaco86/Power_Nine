@@ -25,6 +25,11 @@ module.exports = function (sequelize, DataTypes) {
       type: DataTypes.STRING,
       default: "./assets/default.jpg"
     }
+    // },
+    // pendingTrades: {
+    //   type: DataTypes.BOOLEAN,
+    //   default: false
+    // }
   });
   // User can have many Cards
   User.associate = function (models) {
@@ -41,7 +46,7 @@ module.exports = function (sequelize, DataTypes) {
         allowNull: false
       }
     });
-  }
+  };
   // Creating a custom method for User model. This will check if an unhashed password entered by the user can be compared to the hashed password stored in the database
   User.prototype.validPassword = function (password) {
     return bcrypt.compareSync(password, this.password);
