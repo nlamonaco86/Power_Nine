@@ -74,6 +74,29 @@
         </div>
     </nav>
 
+    <section class="container incoming hide" id="incomingBox">
+        <div class="row padtop d-flex justify-content-center">
+            <div class="pad col-lg-8">
+                <div class="bg-form shadow radius">
+                    <h1 class="display-4 d-flex justify-content-center">You have Trade Offers!</h1>
+                    <div class="d-flex justify-content-between">
+                        <div class="hide" id="senderID"></div>
+                        <div class="hide" id="senderID"></div>
+                        <span class="font-weight-bold text-purple" id="comingFrom"></span> wants to
+                        <span class="font-weight-bold text-purple">trade</span> you
+                        <span class="font-weight-bold text-purple" id="incomingCard"></span> for
+                        <span class="font-weight-bold text-purple" id="outgoingCard"></span>
+                        <button class="btn-circle bg-purple text-light accept">Accept</button>
+                        <span> or </span>
+                        <button class="btn-circle bg-purple text-light reject">Reject</button>
+                    </div>
+                    <div id="msgFrom">Message: </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section class="container" id="cardSearch">
         <h1 class="display-4">Trade</h1>
         <h2 class="lead">View, Request, or Receive trade offers with other users.</h2>
@@ -113,20 +136,25 @@
                         <div class="form-group">
                             <label for="exampleFormControlSelect1">My:</label>
                             <select class="form-control" id="iTrade">
+                                <option>Choose one of your Sets</option>
 
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="exampleFormControlSelect1">For Their:</label>
-                            <select class="form-control" id="theyTrade">
-
+                            <select class="form-control" id="theyTrade" placeholder="Choose one of their Sets">
+                                <option>Choose one of their Sets</option>
                             </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlTextarea1">Include a Message?</label>
+                            <textarea class="form-control" id="message" rows="3"
+                                placeholder="Hey, want to trade?"></textarea>
                         </div>
                         <div class="d-flex justify-content-center">
                             <button type="submit" class="btn-lg btn-circle bg-purple text-light"><i
                                     class="fa fa-exchange-alt fa-2x text-light"></i></button>
                         </div>
-
                     </form>
 
                 </div>
@@ -174,8 +202,10 @@
     </section>
 
     <div class="hide">
-        <div id="sender"></div>
-        <div id="receiver"></div>
+        <div id="senderID"></div>
+        <div id="receiverID"></div>
+        <div id="senderName"></div>
+        <div id="receiverName"></div>
     </div>
 
     <!-- Update Profile Modal -->

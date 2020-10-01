@@ -8,7 +8,8 @@ function personalizePage() {
         $(".profilePic").attr("src", response.profilePic);
         $(".userName").text(response.name);
         $("#userName").attr(`data-id="${response.id}`);
-        $("#sender").text(response.id)
+        $("#senderID").text(response.id)
+        $("#senderName").text(response.name)
         $("#tradeWithProfilePic").attr("src", "./assets/mystery.png")
 
         getTrades(id);
@@ -56,7 +57,8 @@ $("form.tradeWith").on("submit", function (event) {
         if (response.profilePic){
             $("#tradeWithProfilePic").attr("src", response.profilePic)
         }
-        $("#receiver").text(response.id)
+        $("#receiverID").text(response.id)
+        $("#receiverName").text(response.name)
         $(".tradeWithName").text(response.name);
         $(".tradeWithName").attr(`data-id="${response.id}`);
         let id = response.id
@@ -94,6 +96,7 @@ $("form.theirSets").on("submit", function (event) {
       //Waits for the allMyAjax array to be done
       Promise.all(allMyAjax)
         .then(function (response) {
+            $("#theyTrade").empty();
          for (let i=0; i < response.length; i++){
             $("#theyTrade").append(`<option>${response[i].name}</option>`)
          }
@@ -123,6 +126,7 @@ $("form.mySets").on("submit", function (event) {
       //Waits for the allMyAjax array to be done
       Promise.all(allMyAjax)
         .then(function (response) {
+        $("#iTrade").empty();
          for (let i=0; i < response.length; i++){
             $("#iTrade").append(`<option>${response[i].name}</option>`)
          }
@@ -137,10 +141,21 @@ function getTrades(receiverID) {
         type: "GET"
 
     }).then(function (response) {
-       console.log(response)
+        if (response.length !== 0){
+            $("#incomingBox").removeClass("hide");
+        }
+    // Loop through and create notifications for each incoming trade.
+       for (let i=0; i < response.length; i++){
+           $("#comingFrom").text(response[i].senderName);
+           $("#incomingCard").text(response[i].receiveCard);
+           $("#outgoingCard").text(response[i].sendCard);
+           $("#msgFrom").append(response[i].message);
+           $(".reject").attr("data-id", response[i].id);
+           $(".accept").attr("data-id", response[i].id)
+        console.log(response[i]);
+       }
     })
 }
-
 
 // Submit a Trade
 $("form.tradeForm").on("submit", function (event) {
@@ -149,9 +164,11 @@ $("form.tradeForm").on("submit", function (event) {
     let tradeData = {
         iTrade : $("#iTrade").val(),
         theyTrade : $("#theyTrade").val(),
-        message: "Let's trade!",
-        sender: $("#sender").text(),
-        receiver: $("#receiver").text()
+        message: $("#message").val(),
+        senderID: $("#senderID").text(),
+        senderName: $("#senderName").text(),
+        receiverID: $("#receiverID").text(),
+        receiverName: $("#receiverName").text()
     }
 
     $.ajax("/api/trades/", {

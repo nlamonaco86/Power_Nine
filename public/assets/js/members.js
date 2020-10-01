@@ -43,7 +43,7 @@ function populateUsers() {
       <div class="d-flex justify-content-center"><img src="${response[i].profilePic}" alt="user pic" class="d-flex justify-content-center img-round"></div>
         <h3 class="d-flex justify-content-center">${response[i].name}</h3>
         <div class="d-flex justify-content-center">
-          <button class="btn-lg btn-circle bg-purple text-light" data-name="${response[i].id}"><i class="fa fa-exchange-alt fa-2x text-light"></i></button>
+          <button class="btn-lg btn-circle bg-purple text-light" data-name="${response[i].id}"><a href="./trade"><i class="fa fa-exchange-alt fa-2x text-light"></i><a></button>
         </div>
       </div>`)
       }

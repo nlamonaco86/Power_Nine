@@ -115,8 +115,10 @@ module.exports = function (app) {
   // CREATE a Trade
   app.post("/api/trades", function (req, res) {
     db.Trade.create({
-      senderID: req.body.sender,
-      receiverID: req.body.receiver,
+      senderID: req.body.senderID,
+      senderName: req.body.senderName,
+      receiverID: req.body.receiverID,
+      receiverName: req.body.receiverName,
       message: req.body.message,
       sendCard: req.body.iTrade,
       receiveCard: req.body.theyTrade

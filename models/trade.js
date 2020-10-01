@@ -9,9 +9,17 @@ module.exports = function (sequelize, DataTypes) {
       type: DataTypes.INTEGER,
       allowNull: false
     },
+    senderName: {
+      type: DataTypes.STRING,
+      default: null,
+    },
     receiverID: {
       type: DataTypes.INTEGER,
       allowNull: false
+    },
+    receiverName: {
+      type: DataTypes.STRING,
+      default: null,
     },
     message: {
       type: DataTypes.STRING,
