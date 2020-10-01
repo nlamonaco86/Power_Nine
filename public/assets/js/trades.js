@@ -11,6 +11,8 @@ function personalizePage() {
         $("#sender").text(response.id)
         $("#tradeWithProfilePic").attr("src", "./assets/mystery.png")
 
+        getTrades(id);
+
         //Request the list of User's sets from Our API 
         $.ajax("/api/sets/" + id, {
             type: "GET"
@@ -127,6 +129,18 @@ $("form.mySets").on("submit", function (event) {
         });
     })
 })
+// View All INCOMING trades 
+function getTrades(receiverID) {
+    console.log(receiverID)
+
+    $.ajax("/api/trades/" + receiverID, {
+        type: "GET"
+
+    }).then(function (response) {
+       console.log(response)
+    })
+}
+
 
 // Submit a Trade
 $("form.tradeForm").on("submit", function (event) {
@@ -135,6 +149,7 @@ $("form.tradeForm").on("submit", function (event) {
     let tradeData = {
         iTrade : $("#iTrade").val(),
         theyTrade : $("#theyTrade").val(),
+        message: "Let's trade!",
         sender: $("#sender").text(),
         receiver: $("#receiver").text()
     }
@@ -144,8 +159,8 @@ $("form.tradeForm").on("submit", function (event) {
         data: tradeData
 
     }).then(function (response) {
-
         console.log(response)
-    })
-    
-})
+        $("#iTrade").empty();
+        $("#theyTrade").empty();
+    })  
+});

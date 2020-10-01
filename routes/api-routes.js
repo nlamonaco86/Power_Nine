@@ -112,11 +112,12 @@ module.exports = function (app) {
 
 
   // ********************** TRADING ***************************************** // 
+  // CREATE a Trade
   app.post("/api/trades", function (req, res) {
-    console.log(req.body)
     db.Trade.create({
       senderID: req.body.sender,
       receiverID: req.body.receiver,
+      message: req.body.message,
       sendCard: req.body.iTrade,
       receiveCard: req.body.theyTrade
     })
@@ -125,6 +126,16 @@ module.exports = function (app) {
       })
       .catch(function (err) {
         res.status(401).json(err);
+      });
+  });
+
+// FIND ALL trades by RECEIVER
+  app.get("/api/trades/:receiverID", function (req, res) {
+    db.Trade.findAll({
+      where: { receiverID: req.params.receiverID }
+    })
+      .then(result => {
+        res.json(result);
       });
   });
 }
