@@ -140,4 +140,16 @@ module.exports = function (app) {
         res.json(result);
       });
   });
+
+  // UPDATE / DELETE / HANDLE TRADES and Cards
+  app.post("/api/trades/accept", function (req, res) {
+    console.log(req.body)
+      .then(function () {
+        res.send("success")
+      })
+      .catch(function (err) {
+        res.status(401).json(err);
+      });
+  });
+
 }

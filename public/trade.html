@@ -79,19 +79,48 @@
             <div class="pad col-lg-8">
                 <div class="bg-form shadow radius">
                     <h1 class="display-4 d-flex justify-content-center">You have Trade Offers!</h1>
-                    <div class="d-flex justify-content-between">
-                        <div class="hide" id="senderID"></div>
-                        <div class="hide" id="senderID"></div>
-                        <span class="font-weight-bold text-purple" id="comingFrom"></span> wants to
-                        <span class="font-weight-bold text-purple">trade</span> you
-                        <span class="font-weight-bold text-purple" id="incomingCard"></span> for
-                        <span class="font-weight-bold text-purple" id="outgoingCard"></span>
-                        <button class="btn-circle bg-purple text-light accept">Accept</button>
-                        <span> or </span>
-                        <button class="btn-circle bg-purple text-light reject">Reject</button>
-                    </div>
-                    <div id="msgFrom">Message: </div>
-
+                    <form class="gotTrade">
+                        <div class="form-row">
+                            <div class="form-group col-md-2 hide">
+                                <label>ID</label>
+                                <select id="IDsender" class="form-control">
+                                  <!-- trade appears here -->
+                                </select>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label id="comingFrom">wants to trade</label>
+                                <select id="incomingCard" class="form-control">
+                                  <!-- trade appears here -->
+                                </select>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label id="goingTo">for </label>
+                                <select id="outgoingCard" class="form-control">
+                                <!-- outgoing appears here-->
+                                </select>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label>Response:</label>
+                                <select id="answer" class="form-control">
+                                    <option selected>Accept</option>
+                                    <option>Reject</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-2 hide">
+                                <label>ID</label>
+                                <select id="IDreceiver" class="form-control">
+                                <!-- outgoing appears here-->
+                                </select>
+                            </div>
+                            <div class="form-group col-md-2 hide">
+                                <label>Trade ID</label>
+                                <select id="tradeID" class="form-control">
+                                <!-- outgoing appears here-->
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Sign in</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

@@ -54,7 +54,7 @@ $("form.tradeWith").on("submit", function (event) {
     $.ajax("/api/user_data/" + id, {
         type: "GET"
     }).then(function (response) {
-        if (response.profilePic){
+        if (response.profilePic) {
             $("#tradeWithProfilePic").attr("src", response.profilePic)
         }
         $("#receiverID").text(response.id)
@@ -81,26 +81,26 @@ $("form.theirSets").on("submit", function (event) {
     let setId = $(this).find(':selected').attr('data-id')
     // Search Our CARDS database for all Cards that belong to that SetID
     $.ajax("/api/cards/" + setId, {
-      type: "GET"
+        type: "GET"
     }).then(function (response) {
-      // Blank array to hold all the card objects requested 
-      let allMyAjax = [];
-      for (let i = 0; i < response.length; i++) {
-        // Pushes all the AJAX requests into that blank array
-        allMyAjax.push(
-          $.ajax({
-            method: 'GET',
-            url: "https://api.scryfall.com/cards/named?fuzzy=" + response[i].cardName
-          }));
-      };
-      //Waits for the allMyAjax array to be done
-      Promise.all(allMyAjax)
-        .then(function (response) {
-            $("#theyTrade").empty();
-         for (let i=0; i < response.length; i++){
-            $("#theyTrade").append(`<option>${response[i].name}</option>`)
-         }
-        });
+        // Blank array to hold all the card objects requested 
+        let allMyAjax = [];
+        for (let i = 0; i < response.length; i++) {
+            // Pushes all the AJAX requests into that blank array
+            allMyAjax.push(
+                $.ajax({
+                    method: 'GET',
+                    url: "https://api.scryfall.com/cards/named?fuzzy=" + response[i].cardName
+                }));
+        };
+        //Waits for the allMyAjax array to be done
+        Promise.all(allMyAjax)
+            .then(function (response) {
+                $("#theyTrade").empty();
+                for (let i = 0; i < response.length; i++) {
+                    $("#theyTrade").append(`<option>${response[i].name}</option>`)
+                }
+            });
     })
 })
 
@@ -111,26 +111,26 @@ $("form.mySets").on("submit", function (event) {
     let setId = $(this).find(':selected').attr('data-id')
     // Search Our CARDS database for all Cards that belong to that SetID
     $.ajax("/api/cards/" + setId, {
-      type: "GET"
+        type: "GET"
     }).then(function (response) {
-      // Blank array to hold all the card objects requested 
-      let allMyAjax = [];
-      for (let i = 0; i < response.length; i++) {
-        // Pushes all the AJAX requests into that blank array
-        allMyAjax.push(
-          $.ajax({
-            method: 'GET',
-            url: "https://api.scryfall.com/cards/named?fuzzy=" + response[i].cardName
-          }));
-      };
-      //Waits for the allMyAjax array to be done
-      Promise.all(allMyAjax)
-        .then(function (response) {
-        $("#iTrade").empty();
-         for (let i=0; i < response.length; i++){
-            $("#iTrade").append(`<option>${response[i].name}</option>`)
-         }
-        });
+        // Blank array to hold all the card objects requested 
+        let allMyAjax = [];
+        for (let i = 0; i < response.length; i++) {
+            // Pushes all the AJAX requests into that blank array
+            allMyAjax.push(
+                $.ajax({
+                    method: 'GET',
+                    url: "https://api.scryfall.com/cards/named?fuzzy=" + response[i].cardName
+                }));
+        };
+        //Waits for the allMyAjax array to be done
+        Promise.all(allMyAjax)
+            .then(function (response) {
+                $("#iTrade").empty();
+                for (let i = 0; i < response.length; i++) {
+                    $("#iTrade").append(`<option>${response[i].name}</option>`)
+                }
+            });
     })
 })
 // View All INCOMING trades 
@@ -141,29 +141,32 @@ function getTrades(receiverID) {
         type: "GET"
 
     }).then(function (response) {
-        if (response.length !== 0){
+        if (response.length !== 0) {
             $("#incomingBox").removeClass("hide");
         }
-    // Loop through and create notifications for each incoming trade.
-       for (let i=0; i < response.length; i++){
-           $("#comingFrom").text(response[i].senderName);
-           $("#incomingCard").text(response[i].receiveCard);
-           $("#outgoingCard").text(response[i].sendCard);
-           $("#msgFrom").append(response[i].message);
-           $(".reject").attr("data-id", response[i].id);
-           $(".accept").attr("data-id", response[i].id)
-        console.log(response[i]);
-       }
+        // Loop through and create notifications for each incoming trade.
+        for (let i = 0; i < response.length; i++) {
+
+            $("#comingFrom").prepend(response[i].senderName + " ");
+            $("#goingTo").append(response[i].receiverName + "'s");
+            $("#incomingCard").append(`<option>${response[i].receiveCard}</option>`);
+            $("#outgoingCard").append(`<option>${response[i].sendCard}</option>`);
+            $("#msgFrom").append(response[i].message);
+            $("#IDsender").append(`<option>${response[i].senderID}</option>`);
+            $("#IDreceiver").append(`<option>${response[i].receiverID}</option>`);
+            $("#tradeID").append(`<option>${response[i].id}</option>`);
+            console.log(response[i]);
+        }
     })
 }
 
 // Submit a Trade
 $("form.tradeForm").on("submit", function (event) {
     event.preventDefault();
-    
+
     let tradeData = {
-        iTrade : $("#iTrade").val(),
-        theyTrade : $("#theyTrade").val(),
+        iTrade: $("#iTrade").val(),
+        theyTrade: $("#theyTrade").val(),
         message: $("#message").val(),
         senderID: $("#senderID").text(),
         senderName: $("#senderName").text(),
@@ -179,5 +182,33 @@ $("form.tradeForm").on("submit", function (event) {
         console.log(response)
         $("#iTrade").empty();
         $("#theyTrade").empty();
-    })  
+    })
+});
+
+// ACCEPT or REJECT a trade
+$("form.gotTrade").on("submit", function (event) {
+    event.preventDefault();
+
+    let answer = $("#answer").val();
+
+    let tradeData = {
+        receiverGets: $("#incomingCard").val(),
+        senderGets: $("#outgoingCard").val(),
+        senderID: $("#IDsender").val(),
+        receiverID: $("#IDreceiver").val(),
+        tradeID: $("#tradeID").val(),
+    }
+    if (answer === "Accept") {
+        $.ajax("/api/trades/accept", {
+            type: "POST",
+            data: tradeData
+
+        }).then(function (response) {
+            console.log("trade sent to server!");
+            // window.reload();
+        })
+    }
+    else{
+        console.log("REJECTED!!!")
+    }
 });
