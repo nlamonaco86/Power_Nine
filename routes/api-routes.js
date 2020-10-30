@@ -152,4 +152,15 @@ module.exports = function (app) {
       });
   });
 
+  app.get("/api/test/:id", function (req, res) {
+    db.Set.findOne({
+      // selecting from multiple associated tables at once
+      where: { id: req.params.id },
+      include: [{model:db.Card, attributes:['cardName', 'quantity']}]
+    })
+      .then(result => {
+        res.json(result);
+      });
+  });
+
 }

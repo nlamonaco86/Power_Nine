@@ -22,6 +22,16 @@ function personalizePage() {
 }
 personalizePage();
 
+const dbTest = () => {
+  $.ajax("/api/test/" + "1", {
+    type: "GET"
+  }).then(function (response) {
+    // associated info comes back
+    console.log(response, response.Cards[3].cardName, response.setName)
+  });
+}
+dbTest();
+
 // UPDATE PROFILE FORM
 $("form.update").on("submit", function (event) {
   event.preventDefault();
